@@ -1,6 +1,12 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
+
 WORKDIR /app
+
 COPY . .
+
 RUN chmod +x mvnw
-RUN ./mvnw clean install -DskipTests
-CMD ["java", "-jar", "target/*.jar"]
+RUN ./mvnw clean package -DskipTests
+
+RUN mv target/*.jar app.jar
+
+CMD ["java", "-jar", "app.jar"]
