@@ -3,6 +3,7 @@ package com.api.tubav1.service.impl;
 
 import com.api.tubav1.dto.CategoryDto;
 import com.api.tubav1.mapper.CategoryMapper;
+import com.api.tubav1.model.Category;
 import com.api.tubav1.repository.CategoryRepository;
 import com.api.tubav1.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,25 @@ public class CategoryServiceImpl implements CategoryService {
                 .stream()
                 .map(CategoryMapper::toDto)
                 .toList();
+    }
+
+    @Override
+    public CategoryDto create(CategoryDto dto) {
+        Category category = new Category();
+        category.setName(dto.getName());
+        category.setDescription(dto.getDescription());
+        category.setImageUrl(dto.getImageUrl());
+        category.setTotalCourses(dto.getTotalCourses());
+
+        Category saved = repository.save(category);
+
+        CategoryDto result = new CategoryDto();
+        result.setId(saved.getId());
+        result.setName(saved.getName());
+        result.setDescription(saved.getDescription());
+        result.setImageUrl(saved.getImageUrl());
+        result.setTotalCourses(saved.getTotalCourses());
+
+        return result;
     }
 }

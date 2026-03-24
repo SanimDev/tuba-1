@@ -3,6 +3,7 @@ package com.api.tubav1.controller;
 import com.api.tubav1.dto.CourseDto;
 import com.api.tubav1.dto.CourseResponse;
 import com.api.tubav1.service.CourseService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,4 +46,10 @@ public class CourseController {
                 courses
         );
     }
+
+    @PostMapping
+    public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto dto) {
+        return ResponseEntity.ok(service.createCourse(dto));
+    }
+
 }

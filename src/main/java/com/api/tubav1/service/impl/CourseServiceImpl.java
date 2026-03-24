@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @Service   // important!
 public class CourseServiceImpl implements CourseService {
 
+
+
     private final CourseRepository courseRepository;
 
     public CourseServiceImpl(CourseRepository courseRepository) {
@@ -59,5 +61,30 @@ public class CourseServiceImpl implements CourseService {
 
         dto.setAuthor(author);
         return dto;
+    }
+
+    @Override
+    public CourseDto createCourse(CourseDto dto) {
+
+        Course course = new Course();
+
+        course.setTitle(dto.getTitle());
+        course.setDescription(dto.getDescription());
+        course.setPrice(dto.getPrice());
+        course.setStudents(dto.getStudents());
+        course.setCategoryCode(dto.getCategoryCode());
+        course.setCourseImage(dto.getCourseImage());
+
+        // Author fields
+        if (dto.getAuthor() != null) {
+            course.setAuthorName(dto.getAuthor().getName());
+            course.setAuthorRole(dto.getAuthor().getRole());
+            course.setAuthorImage(dto.getAuthor().getImage());
+        }
+
+        // Save to DB
+        Course saved = courseRepository.save(course);
+
+        return toDto(saved);
     }
 }

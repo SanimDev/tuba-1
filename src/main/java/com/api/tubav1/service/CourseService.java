@@ -12,4 +12,6 @@ public interface CourseService {
     List<CourseDto> getFeaturedCourses();
 
     List<CourseDto> getByCategory(String category);
+
+    CourseDto createCourse(CourseDto dto);
 }

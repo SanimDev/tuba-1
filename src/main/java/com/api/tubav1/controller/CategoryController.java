@@ -3,10 +3,7 @@ package com.api.tubav1.controller;
 import com.api.tubav1.dto.CategoryDto;
 import com.api.tubav1.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class CategoryController {
     @GetMapping
     public List<CategoryDto> getCategories() {
         return service.getAll();
+    }
+
+    @PostMapping
+    public CategoryDto createCategory(@RequestBody CategoryDto dto) {
+        return service.create(dto);
     }
 }
