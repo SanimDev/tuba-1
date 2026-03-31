@@ -3,6 +3,7 @@ package com.api.tubav1.controller;
 import com.api.tubav1.dto.CategoryDto;
 import com.api.tubav1.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,5 +28,16 @@ public class CategoryController {
     @PostMapping
     public CategoryDto createCategory(@RequestBody CategoryDto dto) {
         return service.create(dto);
+    }
+
+
+    // ✅ UPDATE (fixed)
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDto> updateCategory(
+            @PathVariable Long id,
+            @RequestBody CategoryDto dto) {
+
+        CategoryDto updated = service.update(id, dto);
+        return ResponseEntity.ok(updated);
     }
 }

@@ -49,4 +49,25 @@ public class CategoryServiceImpl implements CategoryService {
 
         return result;
     }
+
+    @Override
+    public CategoryDto update(Long id, CategoryDto dto) {
+
+        Category category = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+
+        // update fields
+        category.setName(dto.getName());
+        category.setDescription(dto.getDescription());
+        category.setImageUrl(dto.getImageUrl());
+        category.setTotalCourses(dto.getTotalCourses());
+
+        // if you have code field
+        // category.setCode(dto.getCode());
+
+        Category updated = repository.save(category);
+
+        return CategoryMapper.toDto(updated);
+    }
+
 }
